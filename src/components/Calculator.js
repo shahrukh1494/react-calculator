@@ -3,9 +3,29 @@ import React, { useState } from "react";
 const Calculator = () => {
   const [data, setData] = useState("");
   let length = data.length;
+  let operators = ["+", "-", "/", "*"];
 
   const handleClick = (e) => {
-    setData(data + e.target.name);
+    //check for two consecutive signs and replace first with second
+    for (let i = 0; i < operators.length; i++) {
+      for (let j = 0; j < operators.length; j++) {
+        if (
+          data.charAt(length - 1) === operators[i] &&
+          e.target.name === operators[j]
+        ) {
+          setData(data.slice(0, length - 1) + e.target.name);
+          return;
+        }
+      }
+    }
+    //check for sign at start except for minus
+    if (
+      data + e.target.name !== "+" &&
+      data + e.target.name !== "/" &&
+      data + e.target.name !== "*"
+    ) {
+      setData(data + e.target.name);
+    }
   };
 
   const addZero = (e) => {
@@ -36,6 +56,7 @@ const Calculator = () => {
 
   const calculate = () => {
     try {
+      //check for blank input and sign at end
       if (
         data !== "" &&
         data.charAt(length - 1) !== "+" &&
@@ -55,7 +76,7 @@ const Calculator = () => {
     setData("");
   };
 
-  //delete button function for backspace
+  //C button function for backspace
   const del = () => {
     setData(data.slice(0, length - 1));
   };
