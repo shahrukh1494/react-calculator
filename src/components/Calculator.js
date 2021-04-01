@@ -38,7 +38,7 @@ const Calculator = () => {
     try {
       setData(eval(data).toString());
     } catch (err) {
-      setData("ERROR! WRONG INPUT");
+      setData("ERROR! INVALID INPUT");
     }
   };
 
@@ -60,7 +60,7 @@ const Calculator = () => {
           CE
         </button>
         <button className="delete" onClick={del}>
-          DEL
+          C
         </button>
         <button className="operator" name="/" onClick={handleClick}>
           &divide;
