@@ -36,7 +36,15 @@ const Calculator = () => {
 
   const calculate = () => {
     try {
-      setData(eval(data).toString());
+      if (
+        data !== "" &&
+        data.charAt(length - 1) !== "+" &&
+        data.charAt(length - 1) !== "-" &&
+        data.charAt(length - 1) !== "/" &&
+        data.charAt(length - 1) !== "*"
+      ) {
+        setData(eval(data).toString());
+      }
     } catch (err) {
       setData("ERROR! INVALID INPUT");
     }
