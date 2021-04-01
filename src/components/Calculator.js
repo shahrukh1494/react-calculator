@@ -6,6 +6,12 @@ const Calculator = () => {
   let operators = ["+", "-", "/", "*"];
 
   const handleClick = (e) => {
+    //incase symbol at input start is minus
+    for (let i = 0; i < operators.length; i++) {
+      if (data === "-" && e.target.name === operators[i]) {
+        return;
+      }
+    }
     //check for two consecutive signs and replace first with second
     for (let i = 0; i < operators.length; i++) {
       for (let j = 0; j < operators.length; j++) {
@@ -18,7 +24,7 @@ const Calculator = () => {
         }
       }
     }
-    //check for sign at start except for minus
+    //check for sign at input start except for minus
     if (
       data + e.target.name !== "+" &&
       data + e.target.name !== "/" &&
@@ -45,10 +51,10 @@ const Calculator = () => {
     //add only one decimal per number
     if (
       data.indexOf(".") === -1 ||
-      data.slice(data.lastIndexOf("+") + 1, length + 1).indexOf(".") === -1 ||
-      data.slice(data.lastIndexOf("-") + 1, length + 1).indexOf(".") === -1 ||
-      data.slice(data.lastIndexOf("/") + 1, length + 1).indexOf(".") === -1 ||
-      data.slice(data.lastIndexOf("*") + 1, length + 1).indexOf(".") === -1
+      data.slice(data.lastIndexOf("+") + 1, length).indexOf(".") === -1 ||
+      data.slice(data.lastIndexOf("-") + 1, length).indexOf(".") === -1 ||
+      data.slice(data.lastIndexOf("/") + 1, length).indexOf(".") === -1 ||
+      data.slice(data.lastIndexOf("*") + 1, length).indexOf(".") === -1
     ) {
       setData(data + e.target.name);
     }
