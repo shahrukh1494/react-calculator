@@ -6,7 +6,7 @@ const Calculator = () => {
   let operators = ["+", "-", "/", "*"];
 
   const handleClick = (e) => {
-    //incase symbol at input start is minus
+    //incase sign at input start is minus
     for (let i = 0; i < operators.length; i++) {
       if (data === "-" && e.target.name === operators[i]) {
         return;
@@ -70,7 +70,11 @@ const Calculator = () => {
         data.charAt(length - 1) !== "/" &&
         data.charAt(length - 1) !== "*"
       ) {
+        //calculate and set output value
         setData(eval(data).toString());
+        if (data.indexOf(".") !== -1) {
+          setData(eval(data).toFixed(5).toString());
+        }
       }
     } catch (err) {
       setData("ERROR! INVALID INPUT");
@@ -87,8 +91,20 @@ const Calculator = () => {
     setData(data.slice(0, length - 1));
   };
 
+  const darkMode = () => {
+    document.body.classList.toggle("dark-mode");
+  };
+
   return (
     <div>
+      <div className="dark-mode">
+        <label htmlFor="switch-dark">Dark Mode&nbsp;</label>
+        <label className="switch">
+          <input type="checkbox" id="switch-dark" onChange={darkMode} />
+          <span className="slider round"></span>
+        </label>
+      </div>
+
       <div className="data">{data}</div>
       <div className="keypad">
         <button className="clear" onClick={clear}>
